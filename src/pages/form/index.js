@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import IceContainer from '@icedesign/container';
+// import IceContainer from '@icedesign/container';
 import {
   FormBinderWrapper as IceFormBinderWrapper,
   FormBinder as IceFormBinder,
-  FormError as IceFormError,
+  // FormError as IceFormError,
 } from '@icedesign/form-binder';
 import {
   Input,
@@ -54,7 +54,7 @@ export default class GroupedForm extends Component {
   };
 
   reset = async () => {
-    if (this.state.value) {
+    if (this.state.value.id) {
       await $datas(this.name)
         .delete(this.state.value);
     }
@@ -115,7 +115,7 @@ export default class GroupedForm extends Component {
               );
             })}
 
-            {<Row>
+            {this.state.fid.indexOf('上传图片') > -1 && <Row>
               <Col xxs="8" s="3" l="3" style={styles.formLabel}>
                 上传图片：
               </Col>
@@ -139,12 +139,13 @@ export default class GroupedForm extends Component {
                          this.input = ref;
                        }}
                 />
-                {this.state.value.上传图片&&<img style={styles.img} src={this.state.value.上传图片 && this.state.value.上传图片.split('/api/slider')
+                {this.state.value.上传图片 && <img style={styles.img}
+                  src={this.state.value.上传图片 && this.state.value.上传图片.split(`/api/${this.name}`)
                   .join('')}
                   alt=""
                 />}
               </Col>
-            </Row>}
+                                                    </Row>}
 
             <Row style={styles.btns}>
               <Col xxs="6" s="3" l="3" style={styles.formLabel}>
