@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import {} from 'react-router-dom';
 import IceContainer from '@icedesign/container';
 import SEditor from 'simditor';
 import 'simditor/styles/simditor.scss';
 import { Input, Grid, Button } from '@icedesign/base';
+import http from '../../utils/http';
 
 const { Row, Col } = Grid;
 
@@ -11,22 +13,25 @@ export default class Editor extends Component {
     super();
     this.state = {
       filename: '',
-      value: {
-        产品名字: '',
-        产品描述: '',
-        产品分类: '',
-      },
+      产品名字: '',
+      产品描述: '',
+      产品分类: '',
     };
   }
 
   componentDidMount = () => {
-    console.log(this.editor);
+    // console.log(this.editor);
     const editor = new SEditor({
       textarea: this.editor,
       placeholder: '编辑产品文档',
       defaultImage: 'images/image.png',
       params: {},
-      upload: true,
+      upload: {
+        url: `${http.baseURL}upload`,
+        fileKey: 'upload_file',
+        connectionCount: 1,
+        leaveConfirm: '文件上传正在进行中，确定要离开吗？',
+      },
       tabIndent: true,
       toolbar: [
         'title',
@@ -56,17 +61,31 @@ export default class Editor extends Component {
       cleanPaste: false,
     });
     this.editor = editor;
+    this.editor.on('valuechanged', (e, src) => {
+      this.setState({ 产品描述: e.target.getValue() });
+      // console.log(e.target.getValue())
+    });
   };
 
   onUpLoadFileName = (e) => {
     // console.log(e.target.files[0]);
     if (e.target.files[0]) {
-      this.setState({ filename: e.target.files[0].name, file: e.target.files[0],});
+      this.setState({ filename: e.target.files[0].name, file: e.target.files[0] });
     }
   };
 
-  submit = (e) => {
-
+  submit = async () => {
+    const { 产品名字, 产品分类, file, 产品描述 } = this.state;
+    const form = new FormData();
+    form.append('产品名字', 产品名字);
+    form.append('产品分类', 产品分类);
+    form.append('产品描述', 产品描述);
+    if (file) {
+      form.append('上传图片', file);
+    }
+    await $datas('ourProduct').post(form);
+    console.log(this);
+    this.props.history.push('/product');
   };
 
   render() {
@@ -79,7 +98,21 @@ export default class Editor extends Component {
                 产品名字：
               </Col>
               <Col s="20" l="20">
-                <Input style={{ width: '100%' }} />
+                <Input style={{ width: '100%' }}
+                  value={this.state.产品名字}
+                  onChange={(value) => { this.setState({ 产品名字: value }); }}
+                />
+              </Col>
+            </Row>
+            <Row style={styles.formItem}>
+              <Col xxs="8" s="3" l="3" style={styles.formLabel}>
+                产品分类：
+              </Col>
+              <Col s="20" l="20">
+                <Input style={{ width: '100%' }}
+                  value={this.state.产品分类}
+                  onChange={(value) => { this.setState({ 产品分类: value }); }}
+                />
               </Col>
             </Row>
             <Row style={{ marginBottom: '25px' }}>
@@ -95,18 +128,9 @@ export default class Editor extends Component {
                 />
               </Col>
             </Row>
-            <Row style={styles.formItem}>
-              <Col xxs="8" s="3" l="3" style={styles.formLabel}>
-                产品分类：
-              </Col>
-              <Col s="20" l="20">
-                <Input style={{ width: '100%' }} />
-              </Col>
-            </Row>
-
             <Row>
               <Col xxs="8" s="3" l="3" style={styles.formLabel}>
-                上传图片：
+                列表展示图：
               </Col>
               <Col s="12" l="10">
                 <input
