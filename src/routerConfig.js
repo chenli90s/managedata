@@ -6,6 +6,7 @@ import HeaderAsideFooterLayout from './layouts/HeaderAsideFooterLayout';
 // import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import { Home, About, Contact, Globals, Service, Product } from './pages/page';
+import Editor from './pages/editor';
 
 const routerConfig = [
   {
@@ -37,6 +38,11 @@ const routerConfig = [
     path: '/service',
     layout: HeaderAsideFooterLayout,
     component: Service,
+  },
+  {
+    path: '/editor',
+    layout: HeaderAsideFooterLayout,
+    component: Editor,
   },
   {
     path: '*',

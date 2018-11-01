@@ -55,6 +55,11 @@ const asideMenuConfig = [
     path: '/globals',
     icon: 'shezhi',
   },
+  {
+    name: '产品发布',
+    path: '/editor',
+    icon: 'edit',
+  },
 ];
 
 export { headerMenuConfig, asideMenuConfig };

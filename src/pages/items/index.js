@@ -44,7 +44,11 @@ export default class GroupedForm extends Component {
     this.fid.forEach((val) => {
       dt[val] = '';
     });
-
+    const { img, title } = this.props;
+    // console.log(title);
+    if (title === '我们的产品') {
+      // blank = false;
+    }
     return (
       <div>
         {isAdd ?
@@ -56,13 +60,13 @@ export default class GroupedForm extends Component {
                   title={val[this.fid[0]]}
                   key={val.id}
                 >
-                  <Form fid={this.fid} data={val} name={this.name} flush={this.flush} />
+                  <Form fid={this.fid} data={val} name={this.name} flush={this.flush} img={img} />
                 </Panel>
               );
             })}
           </Accordion>
           : this.state.datas.length > 0 &&
-          <Form fid={this.fid} data={this.state.datas[0]} name={this.name} flush={this.flush} />}
+          <Form fid={this.fid} data={this.state.datas[0]} name={this.name} flush={this.flush} img={img} />}
 
         {blank &&
         <Row style={styles.btns}>
@@ -74,7 +78,8 @@ export default class GroupedForm extends Component {
               data={dt}
               name={this.name}
               flush={this.flush}
-              isAdd={true}
+              isAdd
+              img={img}
             />
             </div>
           </Col>

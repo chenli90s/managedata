@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import IceContainer from '@icedesign/container';
 import { Button } from '@icedesign/base';
 import Items from '../items';
-import Form from "../form";
+import Form from '../form';
 
 export default class GroupedForm extends Component {
   constructor(props) {
@@ -17,7 +17,9 @@ export default class GroupedForm extends Component {
         .options();
       // console.log(res, value)
       const data = res.actions.POST;
+      // console.log(data)
       // let dt = {}
+      data.img = false;
       const fid = [];
       Object.values(data)
         .forEach((val) => {
@@ -25,10 +27,13 @@ export default class GroupedForm extends Component {
             // dt[val.lable] = ''
             fid.push(val.label);
           }
+          if (val.type === 'image upload') {
+            data.img = val.label.toLowerCase();
+          }
         });
       data.name = res.description;
       data.fid = fid;
-      data.desc = value
+      data.desc = value;
       // this.state[value] = fid;
       return data;
     });
@@ -47,7 +52,7 @@ export default class GroupedForm extends Component {
           {this.state.ui.map(value => (
             <div style={styles.subForm} key={value.name}>
               <h3 style={styles.formTitle}>{value.name}</h3>
-              <Items fid={value.fid} name={value.desc}/>
+              <Items fid={value.fid} name={value.desc} img={value.img} title={value.name} />
             </div>
           ))}
         </IceContainer>

@@ -14,7 +14,6 @@ import {
 } from '@icedesign/base';
 
 const { Row, Col } = Grid;
-const CheckboxGroup = Checkbox.Group;
 
 
 export default class GroupedForm extends Component {
@@ -59,37 +58,46 @@ export default class GroupedForm extends Component {
         .delete(this.state.value);
     }
     await this.props.flush();
+    // console.log('-------');
   };
 
   onUpLoadFileName = (e) => {
-    console.log(e.target.files[0]);
+    // console.log(e.target.files[0]);
     if (e.target.files[0]) {
       this.setState({ filename: e.target.files[0].name, file: e.target.files[0], img: e.target.files[0] });
     }
   };
 
-  submit = () => {
-    this.formRef.validateAll((error, value) => {
+  submit = async () => {
+    let value = {};
+    this.formRef.validateAll((error, val) => {
       // console.log('error', error, 'value', value);
       if (error) {
         // 处理表单报错
       }
       // 提交当前填写的数据
-      const form = new FormData();
-      form.append('上传图片', this.state.file);
-      this.state.fid.forEach((val) => {
-        console.log(val, value[val]);
-        form.append(val, value[val]);
-      });
-      console.log(form);
-      $datas(this.name)
-        .post(form);
-      this.reset();
+      value = val;
     });
+    const form = new FormData();
+    const {img} = this.props
+    if (img) {
+      form.append(img, this.state.file);
+    }
+    this.state.fid.forEach((val) => {
+      // console.log(val, value[val]);
+      form.append(val, value[val]);
+    });
+    // console.log(form);
+    await $datas(this.name)
+      .post(form);
+    // console.log('-------++')
+    this.reset();
+    // this.setState({value:this.props.data})
   };
 
   render() {
-    const { isAdd } = this.props;
+    const { isAdd, img } = this.props;
+    // console.log(this.state.value[img], img)
     return (
       <div className="grouped-form">
         <IceFormBinderWrapper
@@ -108,16 +116,16 @@ export default class GroupedForm extends Component {
                   </Col>
                   <Col s="12" l="10">
                     <IceFormBinder name={value}>
-                      <Input multiple style={{ width: '100%' }} />
+                      <Input multiple style={{ width: '100%' }}/>
                     </IceFormBinder>
                   </Col>
                 </Row>
               );
             })}
 
-            {this.state.fid.indexOf('上传图片') > -1 && <Row>
+            {img && <Row>
               <Col xxs="8" s="3" l="3" style={styles.formLabel}>
-                上传图片：
+                {img}：
               </Col>
               <Col s="12" l="10">
                 <input
@@ -131,21 +139,21 @@ export default class GroupedForm extends Component {
                   onChange={this.onUpLoadFileName}
                 />
                 <Input style={{ width: '100%' }}
-                  value={this.state.filename}
-                  placeholder="点击上传图片"
+                       value={this.state.filename}
+                       placeholder="点击上传图片"
                   // onFocus={this.onSelect}
-                  onClick={() => this.file.click()}
-                  ref={(ref) => {
+                       onClick={() => this.file.click()}
+                       ref={(ref) => {
                          this.input = ref;
                        }}
                 />
-                {this.state.value.上传图片 && <img style={styles.img}
-                  src={this.state.value.上传图片 && this.state.value.上传图片.split(`/api/${this.name}`)
-                  .join('')}
-                  alt=""
+                {this.state.value[img] && <img style={styles.img}
+                                               src={this.state.value[img] && this.state.value[img].split(`/api/${this.name}`)
+                                                 .join('')}
+                                               alt=""
                 />}
               </Col>
-                                                    </Row>}
+            </Row>}
 
             <Row style={styles.btns}>
               <Col xxs="6" s="3" l="3" style={styles.formLabel}>

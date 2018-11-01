@@ -45,8 +45,8 @@ const datas = (res) => {
         method: 'post',
         headers,
         data,
-      };
-      return axios(req);
+      }
+      return axios(req).catch(e => (console.log({})));
     },
     async patch(data) {
       await checkToken();
