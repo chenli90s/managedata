@@ -70,6 +70,11 @@ const asideMenuConfig = [
     path: '/message',
     icon: 'message',
   },
+  {
+    name: '图标参考表',
+    path: '/icon',
+    icon: 'image',
+  },
 ];
 
 export { headerMenuConfig, asideMenuConfig };

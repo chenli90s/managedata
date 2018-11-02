@@ -9,6 +9,7 @@ import { Home, About, Contact, Globals, Service, Product } from './pages/page';
 import Editor from './pages/editor';
 import Price from './pages/price';
 import Msg from './pages/msg';
+import Icon from './pages/icon';
 
 const routerConfig = [
   {
@@ -55,6 +56,11 @@ const routerConfig = [
     path: '/message',
     layout: HeaderAsideFooterLayout,
     component: Msg,
+  },
+  {
+    path: '/icon',
+    layout: HeaderAsideFooterLayout,
+    component: Icon,
   },
   {
     path: '*',
