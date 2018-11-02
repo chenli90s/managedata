@@ -13,6 +13,8 @@ axios.interceptors.response.use(
     if (response.status === 200) {
       return data;
     }
+    console.log(response.status)
+    location = `http://${location.host}/#/login`;
     return Promise.reject();
   }
   , error =>

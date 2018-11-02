@@ -1,6 +1,5 @@
 import axios from 'axios';
 import http from './http';
-
 // window.$http = http
 // http['header']['Cookie'] = 'sessionid=59v0nsdecujrzwm1vigzjfz9sxxd4tuc;'
 
@@ -14,14 +13,10 @@ const cates = {
 };
 
 const checkToken = async () => {
-  if (localStorage.getItem(token)) {
+  if (localStorage.getItem('token')) {
     return;
   }
-  const token = await http.post('http://127.0.0.1:8000/api-token-auth/', {
-    username: 'admin',
-    password: 'adminroot',
-  });
-  localStorage.setItem('token', token.token);
+
   http.header.Authorization = `JWT ${localStorage.getItem('token')}`;
 };
 

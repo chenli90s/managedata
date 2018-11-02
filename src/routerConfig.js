@@ -10,6 +10,7 @@ import Editor from './pages/editor';
 import Price from './pages/price';
 import Msg from './pages/msg';
 import Icon from './pages/icon';
+import Login from './pages/login';
 
 const routerConfig = [
   {
@@ -61,6 +62,11 @@ const routerConfig = [
     path: '/icon',
     layout: HeaderAsideFooterLayout,
     component: Icon,
+  },
+  {
+    path: '/login',
+    // layout: HeaderAsideFooterLayout,
+    component: Login,
   },
   {
     path: '*',
