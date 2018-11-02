@@ -60,6 +60,16 @@ const asideMenuConfig = [
     path: '/editor',
     icon: 'edit',
   },
+  {
+    name: '报价咨询',
+    path: '/price',
+    icon: 'creative',
+  },
+  {
+    name: '你的消息',
+    path: '/message',
+    icon: 'message',
+  },
 ];
 
 export { headerMenuConfig, asideMenuConfig };

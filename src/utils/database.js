@@ -7,7 +7,7 @@ import http from './http';
 const cates = {
   home: ['slider', 'ourService', 'choiceus', 'news', 'comment', 'clients'],
   about: ['ourGuidance', 'ourGood', 'ourTeam', 'ourPartners'],
-  contact: ['contacts'],
+  contact: ['contacts', 'maps'],
   service: ['ourGuidances', 'ourAdvantage', 'ourProduct', 'ourProductcate'],
   globals: ['globals'],
   product: ['ourProduct', 'ourProductcate'],
