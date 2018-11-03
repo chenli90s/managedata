@@ -56,7 +56,9 @@ export default class Login extends Component {
     console.log(token);
     localStorage.setItem('token', token.token);
     Feedback.toast.success('登录成功');
+    this.props.history.push('/');
   };
+
 
   render() {
     return (

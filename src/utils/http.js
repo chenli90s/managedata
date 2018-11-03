@@ -13,13 +13,16 @@ axios.interceptors.response.use(
     if (response.status === 200) {
       return data;
     }
-    console.log(response.status)
+    console.log(response.status);
     location = `http://${location.host}/#/login`;
     return Promise.reject();
   }
-  , error =>
+  , (error) => {
+    console.log(error);
+    location = `http://${location.host}/#/login`;
+    return Promise.reject(error);
+  }
   // Do something with response error
-    Promise.reject(error)
 );
 
 const Http = {
