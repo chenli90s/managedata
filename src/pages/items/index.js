@@ -6,7 +6,7 @@ import Form from '../form';
 const { Panel } = Accordion;
 const { Row, Col } = Grid;
 
-export default class GroupedForm extends Component {
+export default class GroupedForm1 extends Component {
   constructor(props) {
     super(props);
     this.fid = props.fid;
@@ -53,12 +53,12 @@ export default class GroupedForm extends Component {
       <div>
         {isAdd ?
           <Accordion>
-            {this.state.datas.map((val) => {
+            {this.state.datas.map((val, index) => {
               return (
                 <Panel
                   multiTitle
                   title={val[this.fid[0]]}
-                  key={val.id}
+                  key={index}
                 >
                   <Form fid={this.fid} data={val} name={this.name} flush={this.flush} img={img} />
                 </Panel>

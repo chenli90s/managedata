@@ -4,7 +4,7 @@ import { Button } from '@icedesign/base';
 import Items from '../items';
 import Form from '../form';
 
-export default class GroupedForm extends Component {
+export default class GroupedForm0 extends Component {
   constructor(props) {
     super(props);
     const name = this.props.name;
@@ -13,19 +13,13 @@ export default class GroupedForm extends Component {
       ui: [],
     };
     this.datasources = cates.map(async (value) => {
-      try{
-        const res = await $datas(value)
-          .options();
+      const res = await $datas(value)
+        .options();
         // console.log(res, value)
-        if (!res) {
-          return;
-        }
-        const data = res.actions.POST;
-      }catch (e) {
-        location = `http://${location.host}/#/login`;
-        // props.history.push('/login')
+      if(!res){
         return
       }
+      const data = res.actions.POST;
       // console.log(data)
       // let dt = {}
       data.img = false;

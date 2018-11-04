@@ -57,7 +57,7 @@ const datas = (res) => {
     },
     async options() {
       checkToken();
-      console.log(http.header)
+      // console.log(http.header)
       return http.options(url);
     },
   };
