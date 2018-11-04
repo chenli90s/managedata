@@ -13,13 +13,19 @@ export default class GroupedForm extends Component {
       ui: [],
     };
     this.datasources = cates.map(async (value) => {
-      const res = await $datas(value)
-        .options();
-      // console.log(res, value)
-      if (!res) {
-        return;
+      try{
+        const res = await $datas(value)
+          .options();
+        // console.log(res, value)
+        if (!res) {
+          return;
+        }
+        const data = res.actions.POST;
+      }catch (e) {
+        location = `http://${location.host}/#/login`;
+        // props.history.push('/login')
+        return
       }
-      const data = res.actions.POST;
       // console.log(data)
       // let dt = {}
       data.img = false;

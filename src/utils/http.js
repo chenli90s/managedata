@@ -1,7 +1,7 @@
 import axios from 'axios';
 // import userStore from '../stores/userStore';
 
-const baseURL = 'http://www.inszi.com:9000/api/';
+const baseURL = 'http://111.231.92.31:9000/api/';
 
 // const baseURL = `http://${host}/api/`;
 axios.defaults.withCredentials = true;
