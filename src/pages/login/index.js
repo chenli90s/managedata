@@ -51,7 +51,7 @@ export default class Login extends Component {
       // 登录成功后做对应的逻辑处理
     });
     // console.log('values:', values);
-    const token = await http.post('http://www.sinzi.com:9000/api-token-auth/', {
+    const token = await http.post('http://www.inszi.com:9000/api-token-auth/', {
       username: values.account,
       password: values.password,
     });
