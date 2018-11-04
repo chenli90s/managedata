@@ -13,10 +13,10 @@ const cates = {
 };
 
 const checkToken = () => {
-  if (!localStorage.getItem('token')) {
-    location = `http://${location.host}/#/login`;
-    return;
-  }
+  // if (!localStorage.getItem('token')) {
+  //   location = `http://${location.host}/#/login`;
+  //   return;
+  // }
   http.header.Authorization = `JWT ${localStorage.getItem('token')}`;
 };
 

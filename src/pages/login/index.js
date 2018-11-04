@@ -44,14 +44,14 @@ export default class Login extends Component {
       if (errors) {
         console.log('errors', errors);
         Feedback.toast.success('输入不正确');
-        return
+        return;
       }
       values = value;
       // this.props.history.push('/')
       // 登录成功后做对应的逻辑处理
     });
     // console.log('values:', values);
-    const token = await http.post('http://127.0.0.1:8000/api-token-auth/', {
+    const token = await http.post('http://www.sinzi.com:9000/api-token-auth/', {
       username: values.account,
       password: values.password,
     });
