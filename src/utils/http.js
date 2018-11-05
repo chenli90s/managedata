@@ -13,15 +13,17 @@ axios.interceptors.response.use(
     if (response.status === 200) {
       return data;
     }
+    if (response.status === 401) {
+      location = `http://${location.host}/#/login`;
+    }
     console.log(response.status);
-    location = `http://${location.host}/#/login`;
-    return Promise.reject();
+    return "";
   }
   , (error) => {
     console.log(error);
     location = `http://${location.host}/#/login`;
     return Promise.reject(error);
-  }
+  },
   // Do something with response error
 );
 
@@ -46,7 +48,8 @@ const Http = {
     } else {
       req.data = reqBody;
     }
-    return axios(req).catch(e => ({}));
+    return axios(req)
+      .catch(e => ({}));
   },
   get(api, data) {
     return this.request('get', api, data);

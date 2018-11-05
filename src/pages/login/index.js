@@ -43,7 +43,7 @@ export default class Login extends Component {
     this.refs.form.validateAll((errors, value) => {
       if (errors) {
         console.log('errors', errors);
-        Feedback.toast.success('输入不正确');
+        Feedback.toast.error('输入不正确');
         return;
       }
       values = value;

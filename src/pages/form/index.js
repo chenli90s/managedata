@@ -10,7 +10,7 @@ import {
   Button,
   // Select,
   Checkbox,
-  Grid,
+  Grid, Feedback,
 } from '@icedesign/base';
 
 const { Row, Col } = Grid;
@@ -79,8 +79,8 @@ export default class GroupedForm extends Component {
       value = val;
     });
     const form = new FormData();
-    const {img} = this.props
-    if (img) {
+    const { img } = this.props;
+    if (img && this.state.file) {
       form.append(img, this.state.file);
     }
     this.state.fid.forEach((val) => {
@@ -90,6 +90,13 @@ export default class GroupedForm extends Component {
     // console.log(form);
     await $datas(this.name)
       .post(form);
+    const { data } = this.props;
+    this.setState({
+      value: data,
+      filename: '',
+      file: '',
+    });
+    Feedback.toast.success('提交成功');
     // console.log('-------++')
     this.reset();
     // this.setState({value:this.props.data})
@@ -116,7 +123,7 @@ export default class GroupedForm extends Component {
                   </Col>
                   <Col s="12" l="10">
                     <IceFormBinder name={value}>
-                      <Input multiple style={{ width: '100%' }}/>
+                      <Input multiple style={{ width: '100%' }} />
                     </IceFormBinder>
                   </Col>
                 </Row>
@@ -139,18 +146,18 @@ export default class GroupedForm extends Component {
                   onChange={this.onUpLoadFileName}
                 />
                 <Input style={{ width: '100%' }}
-                       value={this.state.filename}
-                       placeholder="点击上传图片"
+                  value={this.state.filename}
+                  placeholder="点击上传图片"
                   // onFocus={this.onSelect}
-                       onClick={() => this.file.click()}
-                       ref={(ref) => {
+                  onClick={() => this.file.click()}
+                  ref={(ref) => {
                          this.input = ref;
                        }}
                 />
                 {this.state.value[img] && <img style={styles.img}
-                                               src={this.state.value[img] && this.state.value[img].split(`/api/${this.name}`)
+                  src={this.state.value[img] && this.state.value[img].split(`/api/${this.name}`)
                                                  .join('')}
-                                               alt=""
+                  alt=""
                 />}
               </Col>
             </Row>}

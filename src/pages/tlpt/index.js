@@ -16,9 +16,10 @@ export default class GroupedForm0 extends Component {
       const res = await $datas(value)
         .options();
         // console.log(res, value)
-      if(!res){
+      if(Object.keys(res).length===0){
         return
       }
+      // console.log(res)
       const data = res.actions.POST;
       // console.log(data)
       // let dt = {}
