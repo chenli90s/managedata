@@ -70,14 +70,19 @@ export default class GroupedForm extends Component {
 
   submit = async () => {
     let value = {};
+    let err = false;
     this.formRef.validateAll((error, val) => {
       // console.log('error', error, 'value', value);
       if (error) {
         // 处理表单报错
+        err = true;
       }
       // 提交当前填写的数据
       value = val;
     });
+    if (err) {
+      return;
+    }
     const form = new FormData();
     const { img } = this.props;
     if (img && this.state.file) {
@@ -85,7 +90,9 @@ export default class GroupedForm extends Component {
     }
     this.state.fid.forEach((val) => {
       // console.log(val, value[val]);
-      form.append(val, value[val]);
+      if (value[val]) {
+        form.append(val, value[val]);
+      }
     });
     // console.log(form);
     await $datas(this.name)
@@ -123,7 +130,12 @@ export default class GroupedForm extends Component {
                   </Col>
                   <Col s="12" l="10">
                     <IceFormBinder name={value}>
-                      <Input multiple style={{ width: '100%' }} />
+                      <Input multiple
+                        style={{ width: '100%' }}
+                        required
+                        placeholder={`请输入${value}`}
+                        message={`${value}未填写`}
+                      />
                     </IceFormBinder>
                   </Col>
                 </Row>
