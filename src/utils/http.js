@@ -23,8 +23,8 @@ axios.interceptors.response.use(
   }
   , (error) => {
     console.log(error);
-    // location = `http://${location.host}/#/login`;
-    Feedback.toast.error('出错了。。');
+    location = `http://${location.host}/#/login`;
+    Feedback.toast.error('登陆身份过期');
     return Promise.reject(error);
   },
   // Do something with response error
