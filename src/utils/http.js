@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { Feedback } from '@icedesign/base';
 // import userStore from '../stores/userStore';
 
 const baseURL = 'http://www.inszi.com:9000/api/';
@@ -14,17 +13,17 @@ axios.interceptors.response.use(
     if (response.status === 200) {
       return data;
     }
-    if (response.status === 401) {
-      Feedback.toast.error('登陆身份过期');
-      location = `http://${location.host}/#/login`;
-    }
+    // if (response.status === 401) {
+    //   Feedback.toast.error('登陆身份过期');
+    //   location = `http://${location.host}/#/login`;
+    // }
     console.log(response.status);
     return Promise.reject(response.status);
   }
   , (error) => {
     console.log(error);
-    location = `http://${location.host}/#/login`;
-    Feedback.toast.error('登陆身份过期');
+    // location = `http://${location.host}/#/login`;
+    // Feedback.toast.error('登陆身份过期');
     return Promise.reject(error);
   },
   // Do something with response error

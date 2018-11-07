@@ -4,7 +4,7 @@ import Tlpt from '../tlpt';
 export class Home extends Component {
   render() {
     return (
-      <Tlpt name="home" />
+      <Tlpt name="home" {...this.props} />
     );
   }
 }
@@ -12,7 +12,7 @@ export class Home extends Component {
 export class About extends Component {
   render() {
     return (
-      <Tlpt name="about" />
+      <Tlpt name="about" {...this.props} />
     );
   }
 }
@@ -20,7 +20,7 @@ export class About extends Component {
 export class Contact extends Component {
   render() {
     return (
-      <Tlpt name="contact" />
+      <Tlpt name="contact" {...this.props} />
     );
   }
 }
@@ -28,7 +28,7 @@ export class Contact extends Component {
 export class Product extends Component {
   render() {
     return (
-      <Tlpt name="product" />
+      <Tlpt name="product" {...this.props} />
     );
   }
 }
@@ -36,7 +36,7 @@ export class Product extends Component {
 export class Service extends Component {
   render() {
     return (
-      <Tlpt name="service" />
+      <Tlpt name="service" {...this.props} />
     );
   }
 }
@@ -44,7 +44,7 @@ export class Service extends Component {
 export class Globals extends Component {
   render() {
     return (
-      <Tlpt name="globals" />
+      <Tlpt name="globals" {...this.props} />
     );
   }
 }

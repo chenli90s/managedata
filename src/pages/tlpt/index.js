@@ -1,23 +1,37 @@
 import React, { Component } from 'react';
 import IceContainer from '@icedesign/container';
-import { Button } from '@icedesign/base';
+import { Feedback } from '@icedesign/base';
 import Items from '../items';
-import Form from '../form';
+
 
 export default class GroupedForm0 extends Component {
   constructor(props) {
     super(props);
-    const name = this.props.name;
-    const cates = $dbs[name];
     this.state = {
       ui: [],
     };
+  }
+
+
+  async componentDidMount() {
+    const name = this.props.name;
+    const cates = $dbs[name];
+
+    let cs = await $datas('slider').options();
+    cs = Object.keys(cs);
+    console.log(cs, '*********************', this);
+    if (cs.length < 1) {
+      this.props.history.push('/login');
+      Feedback.toast.error('登陆身份过期');
+      return;
+    }
+
     this.datasources = cates.map(async (value) => {
       const res = await $datas(value)
         .options();
-        // console.log(res, value)
-      if(Object.keys(res).length===0){
-        return
+      // console.log(res, value)
+      if (Object.keys(res).length === 0) {
+        return;
       }
       // console.log(res)
       const data = res.actions.POST;
@@ -41,9 +55,6 @@ export default class GroupedForm0 extends Component {
       // this.state[value] = fid;
       return data;
     });
-  }
-
-  async componentDidMount() {
     const ui = await Promise.all(this.datasources);
     this.setState({ ui });
   }
